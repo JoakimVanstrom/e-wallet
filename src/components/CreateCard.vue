@@ -5,7 +5,8 @@
         <img src="../assets/wifi.svg" alt="" />
         <img src="../assets/chip.svg" alt="" />
       </div>
-      <p id="number">1234 5678 1234 5678</p>
+      <p class="credNumbers">XXXX XXXX XXXX XXXX</p>
+      <p class="credNumbers" ></p>
       <div class="names">
         <p>CARDHOLDER NAME</p>
          <p>VALID THRU</p>
@@ -15,45 +16,30 @@
        <span>12/12</span>
       </div>
     </article>
-
-    <form @submit.prevent="submitData">
-      <label for="cardnumber">CARD NUMBER</label>
-      <input v-model="eneteredCardNumber" type="text" name="cardnumber" id="" />
-
-      <label for="name">CARDHOLDER NAME</label>
-      <input v-model="enteredName" type="text" name="name" />
-    <div class="validation">
-      <label for="valid">VALID THRU</label>
-      <input v-model="eneteredValid" type="text" name="valid" />
-
-      <label for="cvv">CCV</label>
-      <input v-model="eneteredCcv" type="text" name="cvv" />
-</div>
-      <label for="vendor">VENDOR</label>
-      <input v-model="vendor" type="text" name="vendor" />
-      <button>ADD CARD</button>
-    </form>
+    <CreateCardForm></CreateCardForm>
   </div>
 </template>
 
 <script>
+import CreateCardForm from './CreateCardForm.vue'
 export default {
+    components: { CreateCardForm
+    },
   data() {
     return {
-      eneteredCardNumber: "",
-      enteredName: "",
-      eneteredValid: "",
-      eneteredCcv: "",
-      vendor: "",
     };
   },
+
+
 };
 </script>
 
 <style scoped lang="scss">
+.create-card{
+    width: 382px;
+}
 
 .preview-card {
-    width: 382px;
   height: 241px;
   background-color: #d0d0d0;
   font-family: 'PT Mono', monospace;
@@ -67,7 +53,7 @@ export default {
     padding-left: 1rem;
     padding-top: 1.5rem;
 }
-#number {
+.credNumbers {
     margin: 1rem 0.7rem 0 0.7rem;
     font-size: 29px;
 }
@@ -87,17 +73,7 @@ export default {
     font-weight: bold;
    
 }
-form {
-          display: flex;
-          flex-direction: column;
-        }
-input {
-        height: 56px;
-        border-radius: 10px;
-    }
-.validation{
-    input{
-        width: 40%;
-    }
-}
+
+
+
 </style>

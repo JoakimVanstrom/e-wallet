@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-  <Home> </Home>
-  <CreateCardPage> </CreateCardPage>
+  <Home v-if="currentView === 'home'"> </Home>
+  <CreateCardPage v-else-if="currentView === 'createCardPage'"> </CreateCardPage>
+  <button @click="currentView = 'createCardPage'">Create Card</button>
   </div>
 </template>
 
@@ -11,7 +12,11 @@ import Home from './views/Home.vue'
 import CreateCardPage from './views/CreateCardPage.vue'
 
 export default {
-  components:{Home, CreateCardPage}
+  components:{Home, CreateCardPage},
+  name: 'App',
+  data(){return{
+    currentView: 'home',
+  }}
 }
 </script>
 
@@ -20,8 +25,18 @@ export default {
 
 body{
   display: grid;
-  place-items: center;
+  place-items: center
 }
+
+// button {
+//     margin-top: 4rem;
+//     height: 72px;
+//     font-size: 1.5rem;
+//     font-weight: bolder;
+//     color: white;
+//     background-color: black;
+//     border-radius: 10px;
+// }
 
 // font-family: 'PT Mono', monospace;
 // font-family: 'Source Sans Pro', sans-serif;
