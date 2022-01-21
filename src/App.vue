@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-  <Home v-if="currentView === 'home'"> </Home>
+  <Home :home="currentView" :active="active" v-if="currentView === 'home'"> </Home>
   <CreateCardPage v-else-if="currentView === 'createCardPage'"> </CreateCardPage>
-  <button @click="currentView = 'createCardPage'">Create Card</button>
+  <button :class="{active: this.currentView}" @click="currentView = 'createCardPage'">Create Card</button>
   </div>
 </template>
 
@@ -16,6 +16,8 @@ export default {
   name: 'App',
   data(){return{
     currentView: 'home',
+    active: this.currentView
+    
   }}
 }
 </script>
@@ -28,7 +30,16 @@ body{
   place-items: center
 }
 
-// button {
+// .createCardPage {
+//     margin-top: 4rem;
+//     height: 72px;
+//     font-size: 1.5rem;
+//     font-weight: bolder;
+//     color: white;
+//     background-color: black;
+//     border-radius: 10px;
+// }
+// .home {
 //     margin-top: 4rem;
 //     height: 72px;
 //     font-size: 1.5rem;
