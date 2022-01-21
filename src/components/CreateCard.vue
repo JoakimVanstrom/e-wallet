@@ -60,8 +60,7 @@
             {{ option.text }}
           </option>
         </select>
-
-        <button>ADD CARD</button>
+        <!-- <button>ADD CARD</button> -->
       </form>
     </div>
   </div>
@@ -71,6 +70,7 @@
 export default {
   data() {
     return {
+      emits: ["add-card"],
       eneteredCardNumber: "",
       enteredName: "",
       eneteredValid: "",
@@ -100,7 +100,21 @@ export default {
       return value;
     },
   },
+  methods:{
+    submitData(){
+      this.$emit(
+        "add-card",
+        this.eneteredCardNumber,
+        this.enteredName,
+        this.eneteredValid,
+        this.eneteredCcv,
+        this.selectedVendor
+      );
+    }
+  }
 };
+
+
 </script>
 
 <style scoped lang="scss">
@@ -167,12 +181,17 @@ header {
   }
 }
 .NB {
+  color: white;
   background: linear-gradient(
       248.3deg,
       rgba(255, 255, 255, 0.15) 0%,
       rgba(255, 255, 255, 0) 100%
     ),
     #222222;
+          #chip {
+    background: white;
+    border-radius: 10px;
+          }
 }
 .BCI {
   background: linear-gradient(
@@ -228,13 +247,13 @@ form {
   padding-top: 1rem;
 }
 
-button {
-  margin-top: 4rem;
-  height: 72px;
-  font-size: 1.5rem;
-  font-weight: bolder;
-  color: white;
-  background-color: black;
-  border-radius: 10px;
-}
+// button {
+//   margin-top: 4rem;
+//   height: 72px;
+//   font-size: 1.5rem;
+//   font-weight: bolder;
+//   color: white;
+//   background-color: black;
+//   border-radius: 10px;
+// }
 </style>
