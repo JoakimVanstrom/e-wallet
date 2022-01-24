@@ -1,17 +1,20 @@
 <template>
   <div id="app">
-  <Home :home="currentView" v-if="currentView === 'home'"> </Home>
+  <Home 
+  :home="currentView" v-if="currentView === 'home'"> </Home>
   
-  <CreateCardPage v-else-if="currentView === 'CreateCardPage'"
-    v-for="card in cards" 
-    :key="card.id"
-    :card="card"
-    @addCard="addCard"
-    >
+  <CreateCardPage
+  :currentView="currentView"
+  v-else-if="currentView === 'CreateCardPage'"
+  :addedCards="addedCards"
+  @add-card="addCard"
+  @change-page="changePage"
+  >
    </CreateCardPage>
   
   
-  <button :class="[currentView]" @click="changePage">Create Card</button>
+  <button v-if="currentView === 'home'" :class="[currentView]" @click="changePage" >Create Card</button>
+  
   </div>
 </template>
 
@@ -23,33 +26,34 @@ import CreateCardPage from './views/CreateCardPage.vue'
 export default {
   components:{Home, CreateCardPage},
   name: 'App',
-  data(){return{
+  data(){
+    return{
     currentView: 'home',
-    
-      cards: [
-        {
-          id: "",
-          cardNumber: "",
-          cardName: "",
-          valid: "",
-          ccv: "",
-          vendor: "",
-        },
-      ],
+    addedCards: [],
+    activeCard: {}
     };
   },
+  computed:{
+
+  },
   methods:{
-      addCard(name, num, valid, ccv, vendor){
-          const newCard = {
-              id: new Date().toISOString(),
-              cardNumber: num,
-              cardName: name,
-              valid: valid,
-              ccv: ccv,
-              vendor: vendor
-          }
-          this.cards.push(newCard)
-      },
+    addCard(newCard){
+      this.addedCards.push(newCard)
+      this.currentView = 'home'
+      console.log(this.addedCards)
+    },
+
+      // addCard(number, name, year, month, vendor){
+      //     const newCard = {
+      //         id: new Date().toISOString(),
+      //         cardNumber: number,
+      //         cardName: name,
+      //         year: year,
+      //         month: month,
+      //         vendor: vendor
+      //     }
+      //     this.addedCards.push(newCard)
+      // },
       changePage(){
         if(this.currentView === 'home'){
             this.currentView = 'CreateCardPage';
@@ -71,16 +75,7 @@ body{
 }
 
 
-.CreateCardPage {
-    margin-top: 4rem;
-    height: 72px;
-    font-size: 1.5rem;
-    font-weight: bolder;
-    color: white;
-    background-color: black;
-    border-radius: 10px;
-    width: 100%;
-}
+
 .home {
     margin-top: 4rem;
     height: 72px;

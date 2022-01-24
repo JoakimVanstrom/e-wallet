@@ -3,7 +3,12 @@
     <article class="preview-card" :class="[selectedVendor]">
       <header>
         <div class="card-icons">
-          <img src="../assets/wifi.svg" alt="" />
+          <img
+            v-if="selectedVendor === 'NB'"
+            src="../assets/wifi_white.svg"
+            alt=""
+          />
+          <img v-else id="wifi" src="../assets/wifi.svg" alt="" />
           <img id="chip" src="../assets/chip.svg" alt="" />
         </div>
         <div class="vendoricon">
@@ -13,7 +18,7 @@
           <img v-else-if="selectedVendor === 'BCI'" :src="BCI" alt="" />
         </div>
       </header>
-      <p class="credNumbers" v-if="eneteredCardNumber.length <= 0">
+      <p class="credNumbers" v-if="cardNumber.length <= 0">
         XXXX XXXX XXXX XXXX
       </p>
       <p class="credNumbers" v-else>{{ spaceNumber }}</p>
@@ -22,66 +27,25 @@
         <p>VALID THRU</p>
       </div>
       <div class="enteredValue">
-        <span>{{ enteredName }}</span>
-        <span>12/12</span>
+        <span>{{ cardName }}</span>
+        <span>{{ month }}/{{ year }}</span>
       </div>
     </article>
-    <div>
-      <form @submit.prevent="submitData">
-        <label for="cardnumber">CARD NUMBER</label>
-        <input
-          type="text"
-          v-model="eneteredCardNumber"
-          name="cardnumber"
-          id="input"
-        />
-
-        <label for="name">CARDHOLDER NAME</label>
-        <input v-model="enteredName" type="text" name="name" />
-
-        <section class="validation">
-          <div>
-            <label for="valid">VALID THRU</label><br />
-            <input v-model="eneteredValid" type="text" name="valid" />
-          </div>
-          <div>
-            <label for="ccv">CCV</label><br />
-            <input v-model="eneteredCcv" type="text" name="ccv" />
-          </div>
-        </section>
-
-        <label for="vendor">VENDOR</label>
-        <select name="vendor" v-model="selectedVendor">
-          <option
-            v-for="option in vendors"
-            :key="option.value"
-            :value="option.value"
-          >
-            {{ option.text }}
-          </option>
-        </select>
-        <!-- <button>ADD CARD</button> -->
-      </form>
-    </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: [
+    "vendorName",
+    "cardNumber",
+    "cardName",
+    "month",
+    "year",
+    "selectedVendor"
+  ],
   data() {
     return {
-      emits: ["add-card"],
-      eneteredCardNumber: "",
-      enteredName: "",
-      eneteredValid: "",
-      eneteredCcv: "",
-      selectedVendor: "previewCard",
-      vendors: [
-        { text: "Bitcoin inc", value: "BI" },
-        { text: "Evil corp", value: "EC" },
-        { text: "Ninja bank", value: "NB" },
-        { text: "Block chain inc", value: "BCI" },
-      ],
       EC: require("../assets/evil.svg"),
       BI: require("../assets/bitcoin.svg"),
       NB: require("../assets/ninja.svg"),
@@ -91,30 +55,16 @@ export default {
   computed: {
     spaceNumber() {
       let value = "";
-      for (let i = 0; i < this.eneteredCardNumber.length; i++) {
+      for (let i = 0; i < this.cardNumber.length; i++) {
         if (i % 4 == 0) {
           value += " ";
         }
-        value += this.eneteredCardNumber[i];
+        value += this.cardNumber[i];
       }
       return value;
     },
   },
-  methods:{
-    submitData(){
-      this.$emit(
-        "add-card",
-        this.eneteredCardNumber,
-        this.enteredName,
-        this.eneteredValid,
-        this.eneteredCcv,
-        this.selectedVendor
-      );
-    }
-  }
 };
-
-
 </script>
 
 <style scoped lang="scss">
@@ -175,7 +125,7 @@ header {
       rgba(255, 255, 255, 0) 99.07%
     ),
     #ffae34;
-      #chip {
+  #chip {
     background: white;
     border-radius: 10px;
   }
@@ -188,10 +138,13 @@ header {
       rgba(255, 255, 255, 0) 100%
     ),
     #222222;
-          #chip {
+  #wifi {
+    color: white;
+  }
+  #chip {
     background: white;
     border-radius: 10px;
-          }
+  }
 }
 .BCI {
   background: linear-gradient(
@@ -226,34 +179,4 @@ header {
   justify-content: space-between;
   font-weight: bold;
 }
-form {
-  display: flex;
-  flex-direction: column;
-  padding-top: 3rem;
-
-  input,
-  select {
-    height: 56px;
-    border-radius: 10px;
-  }
-  label {
-    padding-top: 1rem;
-  }
-}
-
-.validation {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 1rem;
-}
-
-// button {
-//   margin-top: 4rem;
-//   height: 72px;
-//   font-size: 1.5rem;
-//   font-weight: bolder;
-//   color: white;
-//   background-color: black;
-//   border-radius: 10px;
-// }
 </style>

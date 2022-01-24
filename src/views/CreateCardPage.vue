@@ -2,17 +2,35 @@
   <div class="card">
     <h1>ADD A NEW BANK CARD</h1>
     <p>NEW CARD</p>
-    <CreateCard >
-     </CreateCard>
+<CardForm 
+:currentView="currentView"
+@addData="addData"
+:addedCards="addedCards"> </CardForm>
+ 
   </div>
 </template>
 
 <script>
-import CreateCard from "../components/CreateCard.vue";
-export default {
-  components: { CreateCard },
 
-};
+import CardForm from "../components/CardForm.vue"
+export default {
+  components: { CardForm },
+  props:['addedCards', 'currentView'],
+  data(){
+    return {
+      newData:{},
+
+    }
+  },
+  methods:{
+      addData(card){
+      this.newData = card
+      this.$emit('add-card', this.newData)
+      }
+    }
+}
+
+
 </script>
 
 <style scoped lang="scss">
@@ -23,4 +41,7 @@ h1 {
 p{
     text-align: center;
 }
+
+
+  
 </style>
