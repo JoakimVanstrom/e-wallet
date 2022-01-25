@@ -1,7 +1,11 @@
 <template>
   <div id="app">
   <Home 
-  :home="currentView" v-if="currentView === 'home'"> </Home>
+  :home="currentView" 
+  v-if="currentView === 'home'"
+  :cards="addedCards"
+  :activeCard="activeCard"
+  > </Home>
   
   <CreateCardPage
   :currentView="currentView"
