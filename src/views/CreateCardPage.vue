@@ -12,7 +12,7 @@
 
 <script>
 
-import CardForm from "../components/CardForm.vue";
+import CardForm from "../components/CardForm";
 export default {
   components: { CardForm },
   props:['addedCards', 'currentView'],

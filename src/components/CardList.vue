@@ -2,15 +2,11 @@
   <div>
       <ul>
             <CreateCard
-    v-for="card in cards" 
+    v-for="card in added" 
     :key="card.cardNumber"
-    :cardNumber="card.cardNumber"
-    :cardName="card.cardName"
-    :month="card.month"
-    :year="card.year"
-    :selectedVendor="card.selectedVendor"
-    @submitCard="$emit('submitCard', card)"
-            ></CreateCard>
+    :card="card"
+    @active="$emit('active', card)"
+           />
       </ul>
   </div>
 </template>
@@ -19,10 +15,10 @@
 import CreateCard from './CreateCard.vue'
 export default {
 components: {CreateCard},
-props: ['cards', 'submitCard']
+props: ['added']
 }
 </script>
 
-<style>
+<style scoped lang="scss">
 
 </style>

@@ -1,25 +1,27 @@
 <template>
   <div id="app">
+  
+  
   <Home 
   :home="currentView" 
   v-if="currentView === 'home'"
-  :cards="addedCards"
-  :activeCard="activeCard"
-  @activeCard="activateCard"
+  :added="addedCards"
+  :active="activeCard"
+  @active="activateCard"
   > </Home>
   
   <CreateCardPage
   :currentView="currentView"
   v-else-if="currentView === 'CreateCardPage'"
-  :addedCards="addedCards"
+  :added="addedCards"
   @add-card="addCard"
   @change-page="changePage"
   >
    </CreateCardPage>
-  
-  
-  <button v-if="currentView === 'home'" :class="[currentView]" @click="changePage" >Create Card</button>
-  
+ 
+
+  <button v-if="currentView === 'home'"  :class="[currentView]" @click="changePage" >Create Card</button>
+
   </div>
 </template>
 
@@ -47,17 +49,6 @@ export default {
       this.currentView = 'home'
     },
 
-      // addCard(number, name, year, month, vendor){
-      //     const newCard = {
-      //         id: new Date().toISOString(),
-      //         cardNumber: number,
-      //         cardName: name,
-      //         year: year,
-      //         month: month,
-      //         vendor: vendor
-      //     }
-      //     this.addedCards.push(newCard)
-      // },
       changePage(){
         if(this.currentView === 'home'){
             this.currentView = 'CreateCardPage';
@@ -75,11 +66,10 @@ export default {
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=PT+Mono&family=Source+Sans+Pro&display=swap');
 
-body{
+#app{
   display: grid;
-  place-items: center
+  place-items: center;
 }
-
 
 
 .home {

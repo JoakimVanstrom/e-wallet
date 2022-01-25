@@ -1,10 +1,10 @@
 <template>
   <div class="create-card">
-    <article class="preview-card" :class="[selectedVendor]">
+    <article class="preview-card" :class="[card.selectedVendor]">
       <header>
         <div class="card-icons">
           <img
-            v-if="selectedVendor === 'NB'"
+            v-if="card.selectedVendor === 'ninja'"
             src="../assets/wifi_white.svg"
             alt=""
           />
@@ -12,14 +12,10 @@
           <img id="chip" src="../assets/chip.svg" alt="" />
         </div>
         <div class="vendoricon">
-          <!-- <img :src="changeIcon" alt=""> -->
-          <img v-if="selectedVendor === 'EC'" :src="EC" alt="" />
-          <img v-else-if="selectedVendor === 'BI'" :src="BI" alt="" />
-          <img v-else-if="selectedVendor === 'NB'" :src="NB" alt="" />
-          <img v-else-if="selectedVendor === 'BCI'" :src="BCI" alt="" />
+          <img :src="iconPath" alt="" />
         </div>
       </header>
-      <p class="credNumbers" v-if="cardNumber">{{ spaceNumber }}</p>
+      <p class="credNumbers" v-if="card.cardNumber">{{ spaceNumber }}</p>
       <p class="credNumbers" v-else>
         XXXX XXXX XXXX XXXX
       </p>
@@ -28,8 +24,8 @@
         <p>VALID THRU</p>
       </div>
       <div class="enteredValue">
-        <span>{{ cardName }}</span>
-        <span>{{ month }}/{{ year }}</span>
+        <span>{{ card.cardName }}</span>
+        <span>{{ card.month }}/{{ card.year }}</span>
       </div>
     </article>
   </div>
@@ -37,46 +33,26 @@
 
 <script>
 export default {
-  props: [
-    "cardNumber",
-    "cardName",
-    "month",
-    "year",
-    "selectedVendor"
-  ],
+ props: ['card'],
   data() {
     return {
-      icon: '',
-      EC: require("../assets/evil.svg"),
-      BI: require("../assets/bitcoin.svg"),
-      NB: require("../assets/ninja.svg"),
-      BCI: require("../assets/blockchain.svg"),
-    };
+
+        };
   },
   computed: {
     spaceNumber() {
       let value = "";
-      for (let i = 0; i < this.cardNumber.length; i++) {
+      for (let i = 0; i < this.card.cardNumber.length; i++) {
         if (i % 4 == 0) {
           value += " ";
         }
-        value += this.cardNumber[i];
+        value += this.card.cardNumber[i];
       }
       return value;
     },
-    // changeIcon(){
-    //   if(this.selectedVendor === 'EC'){
-    //     return 'EC'
-    //   }else if (this.selectedVendor === 'BI'){
-    //     return 'BI'
-    //   }else if (this.selectedVendor === 'NB'){
-    //     return 'NB'
-    //   }else if (this.selectedVendor === 'BCI'){
-    //     return 'BCI'
-    //   }else{
-    //     return 'previewCard'
-    //   }
-    // },
+    iconPath(){
+      return require(`../assets/${this.card.selectedVendor}.svg`)
+    }
   },
 };
 </script>
@@ -118,7 +94,7 @@ header {
   font-size: 29px;
 }
 
-.EC {
+.evil {
   color: white;
   background: linear-gradient(
       248.3deg,
@@ -132,7 +108,7 @@ header {
   }
 }
 
-.BI {
+.bitcoin {
   background: linear-gradient(
       248.04deg,
       rgba(255, 255, 255, 0.15) 0%,
@@ -144,7 +120,7 @@ header {
     border-radius: 10px;
   }
 }
-.NB {
+.ninja {
   color: white;
   background: linear-gradient(
       248.3deg,
@@ -160,7 +136,7 @@ header {
     border-radius: 10px;
   }
 }
-.BCI {
+.blockchain {
   background: linear-gradient(
       248.52deg,
       rgba(0, 0, 0, 0.15) 1.49%,

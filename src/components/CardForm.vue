@@ -1,11 +1,7 @@
 <template>
   <div>
       <CreateCard
-      :cardNumber="this.newCard.cardNumber"
-      :cardName="this.newCard.cardName"
-      :month="this.newCard.month"
-      :year="this.newCard.year"
-      :selectedVendor="this.newCard.selectedVendor"
+      :card="newCard"
       > </CreateCard>
       <form @submit.prevent="submitData">
         <label for="cardnumber">CARD NUMBER</label>
@@ -68,7 +64,6 @@ components: {CreateCard},
 props: ['addedCards', 'currentView'],
 data(){
     return{
-    cardData: {},
     newCard: {
         cardNumber: "",
         cardName: "",
@@ -99,10 +94,10 @@ data(){
         27: "27",
       },
       vendors: [
-        { text: "Bitcoin inc", value: "BI" },
-        { text: "Evil corp", value: "EC" },
-        { text: "Ninja bank", value: "NB" },
-        { text: "Block chain inc", value: "BCI" },
+        { text: "Bitcoin inc", value: "bitcoin" },
+        { text: "Evil corp", value: "evil" },
+        { text: "Ninja bank", value: "ninja" },
+        { text: "Block chain inc", value: "blockchain" },
       ],
     }
 },
