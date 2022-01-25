@@ -12,16 +12,17 @@
           <img id="chip" src="../assets/chip.svg" alt="" />
         </div>
         <div class="vendoricon">
+          <!-- <img :src="changeIcon" alt=""> -->
           <img v-if="selectedVendor === 'EC'" :src="EC" alt="" />
           <img v-else-if="selectedVendor === 'BI'" :src="BI" alt="" />
           <img v-else-if="selectedVendor === 'NB'" :src="NB" alt="" />
           <img v-else-if="selectedVendor === 'BCI'" :src="BCI" alt="" />
         </div>
       </header>
-      <p class="credNumbers" v-if="cardNumber.length <= 0">
+      <p class="credNumbers" v-if="cardNumber">{{ spaceNumber }}</p>
+      <p class="credNumbers" v-else>
         XXXX XXXX XXXX XXXX
       </p>
-      <p class="credNumbers" v-else>{{ spaceNumber }}</p>
       <div class="names">
         <p>CARDHOLDER NAME</p>
         <p>VALID THRU</p>
@@ -37,7 +38,6 @@
 <script>
 export default {
   props: [
-    "vendorName",
     "cardNumber",
     "cardName",
     "month",
@@ -46,6 +46,7 @@ export default {
   ],
   data() {
     return {
+      icon: '',
       EC: require("../assets/evil.svg"),
       BI: require("../assets/bitcoin.svg"),
       NB: require("../assets/ninja.svg"),
@@ -63,6 +64,19 @@ export default {
       }
       return value;
     },
+    // changeIcon(){
+    //   if(this.selectedVendor === 'EC'){
+    //     return 'EC'
+    //   }else if (this.selectedVendor === 'BI'){
+    //     return 'BI'
+    //   }else if (this.selectedVendor === 'NB'){
+    //     return 'NB'
+    //   }else if (this.selectedVendor === 'BCI'){
+    //     return 'BCI'
+    //   }else{
+    //     return 'previewCard'
+    //   }
+    // },
   },
 };
 </script>

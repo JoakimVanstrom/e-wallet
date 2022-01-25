@@ -9,20 +9,26 @@
       :year="activeCard.year"
       :selectedVendor="activeCard.selectedVendor"
      ></CreateCard>
+
+     <CardList
+     :cards="cards"
+     @activeCard="submitCard"
+     ></CardList>
   </div>
 </template>
 
 <script>
 import CreateCard from '../components/CreateCard.vue'
+import CardList from '../components/CardList.vue'
 export default {
-components: {CreateCard},
+components: {CreateCard, CardList},
 props: ['cards', 'activeCard'],
 data(){return{
   activeCardData: {}
 }},
 methods:{
-  submitCard(e){
-    this.activeCardData = e;
+  submitCard(card){
+    this.activeCardData = card;
     this.$emit('activeCard', this.activeCardData)
   }
 }

@@ -5,6 +5,7 @@
   v-if="currentView === 'home'"
   :cards="addedCards"
   :activeCard="activeCard"
+  @activeCard="activateCard"
   > </Home>
   
   <CreateCardPage
@@ -44,7 +45,6 @@ export default {
     addCard(newCard){
       this.addedCards.push(newCard)
       this.currentView = 'home'
-      console.log(this.addedCards)
     },
 
       // addCard(number, name, year, month, vendor){
@@ -64,9 +64,11 @@ export default {
           }else{
             this.currentView = 'home';
           }
-      }
+      },
+      activateCard(card) {
+      this.activeCard = card
   }
-
+}
 }
 </script>
 
