@@ -1,5 +1,5 @@
 <template>
-  <div class="create-card">
+  <div @click="$emit('active')" class="create-card">
     <article class="preview-card" :class="[card.selectedVendor]">
       <header>
         <div class="card-icons">

@@ -8,6 +8,7 @@
   :added="addedCards"
   :active="activeCard"
   @active="activateCard"
+  @delete="deleteCard"
   > </Home>
   
   <CreateCardPage
@@ -30,6 +31,10 @@
 import Home from './views/Home.vue'
 import CreateCardPage from './views/CreateCardPage.vue'
 
+function persist(data){
+  localStorage.setItem('cardData', JSON.stringify(data))
+}
+
 export default {
   components:{Home, CreateCardPage},
   name: 'App',
@@ -37,16 +42,20 @@ export default {
     return{
     currentView: 'home',
     addedCards: [],
-    activeCard: {}
+    activeCard: {selectedVendor: "previewCard"}
     };
   },
-  computed:{
-
+  created(){
+    let persistData = localStorage.getItem('cardData')
+    if (persistData){
+      this.addedCards = JSON.parse(persistData)
+    }
   },
   methods:{
-    addCard(newCard){
-      this.addedCards.push(newCard)
+    addCard(card){
+      this.addedCards.push(card)
       this.currentView = 'home'
+      persist(this.addedCards)
     },
 
       changePage(){
@@ -58,6 +67,14 @@ export default {
       },
       activateCard(card) {
       this.activeCard = card
+  },
+  deleteCard(){
+    this.addedCards = this.addedCards.filter(
+      (card) => card.cardNumber != this.activeCard.cardNumber
+    )
+  persist(this.addedCards)
+  localStorage.removeItem(this.activeCard)
+  this.activeCard = {}
   }
 }
 }
