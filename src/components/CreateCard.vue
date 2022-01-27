@@ -36,7 +36,7 @@
 
 <script>
 export default {
- props: ['card'],
+ props: ['card', 'margin', 'layerIndex'],
   data() {
     return {
 

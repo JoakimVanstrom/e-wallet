@@ -3,13 +3,13 @@
       <h1>E-Wallet</h1>
      <p>Active card</p>
      <CreateCard 
-    :card="active"
-     @delete="$emit('delete', active)"
+    :card="getCard"
+     @delete="$emit('delete', activeCard)"
      ></CreateCard>
 
      <CardList
      :added="added"
-     @active="submitCard"
+     @active="activateCard"
     
      ></CardList>
   </div>
@@ -23,14 +23,26 @@ export default {
 components: { CardList, CreateCard},
 props: ['added', 'active'],
   data(){return{
-          activeCardData: {}
+          activeCardData: {},
+          activeCard: this.added[0].cardNumber
+         
+
   }},
 methods: {
-   submitCard(card) {
-     this.activeCardData = card 
-      this.$emit("active", this.activeCardData)
-    }
+    activateCard(card) {
+      this.activeCard = card.cardNumber;
+    },
 },
+computed: {
+  getCard(){
+    for(let i = 0; i < this.added.length; i++){
+      if(this.added[i].cardNumber === this.activeCard){
+      return this.added[i]
+    }
+    }
+    return this.added[0]
+    }
+}
 }
 </script>
 

@@ -1,112 +1,104 @@
 <template>
   <div id="app">
-  
-  
-  <Home 
-  :home="currentView" 
-  v-if="currentView === 'home'"
-  :added="addedCards"
-  :active="activeCard"
-  @active="activateCard"
-  @delete="deleteCard"
-  > </Home>
-  
-  <CreateCardPage
-  :currentView="currentView"
-  v-else-if="currentView === 'CreateCardPage'"
-  :added="addedCards"
-  @add-card="addCard"
-  @change-page="changePage"
-  >
-   </CreateCardPage>
- 
+    <Home
+      :home="currentView"
+      v-if="currentView === 'home'"
+      :added="addedCards"
+      @delete="deleteCard"
+    >
+    </Home>
 
-  <button v-if="currentView === 'home'"  
-  :class="[currentView]" 
-  @click="changePage" 
-  >Create Card</button>
+    <CreateCardPage
+      :currentView="currentView"
+      v-else-if="currentView === 'CreateCardPage'"
+      :added="addedCards"
+      @add-card="addCard"
+      @change-page="changePage"
+    >
+    </CreateCardPage>
 
+    <button
+      v-if="currentView === 'home'"
+      :class="[currentView]"
+      @click="changePage"
+    >
+      Create Card
+    </button>
   </div>
 </template>
 
-
 <script>
-import Home from './views/Home.vue'
-import CreateCardPage from './views/CreateCardPage.vue'
+import Home from "./views/Home.vue";
+import CreateCardPage from "./views/CreateCardPage.vue";
 
-function persist(data){
-  localStorage.setItem('cardData', JSON.stringify(data))
+function persist(data) {
+  localStorage.setItem("cardData", JSON.stringify(data));
 }
 
 export default {
-  components:{Home, CreateCardPage},
-  name: 'App',
-  data(){
-    return{
-    currentView: 'home',
-    addedCards: [],
-    activeCard: {selectedVendor: "previewCard"}
+  components: { Home, CreateCardPage },
+  name: "App",
+  data() {
+    return {
+      currentView: "home",
+      addedCards: [],
     };
   },
-  created(){
-    let persistData = localStorage.getItem('cardData')
-    if (persistData){
-      this.addedCards = JSON.parse(persistData)
+  created() {
+    let persistData = localStorage.getItem("cardData");
+    if (persistData) {
+      this.addedCards = JSON.parse(persistData);
     }
   },
-  methods:{
-    addCard(card){
-      this.addedCards.push(card)
-      this.currentView = 'home'
-      persist(this.addedCards)
+  methods: {
+    addCard(card) {
+      this.addedCards.push(card);
+      this.currentView = "home";
+      persist(this.addedCards);
     },
-
-      changePage(){
-        if(this.currentView === 'home'){
-            this.currentView = 'CreateCardPage';
-          }else{
-            this.currentView = 'home';
-          }
-      },
-      activateCard(card) {
-      this.activeCard = card
+    changePage() {
+      if (this.currentView === "home") {
+        this.currentView = "CreateCardPage";
+      } else {
+        this.currentView = "home";
+      }
+    },
+    deleteCard(cardNumber) {
+      this.addedCards = this.addedCards.filter(
+        (card) => card.cardNumber != cardNumber
+      );
+      persist(this.addedCards);
+      localStorage.removeItem(this.activeCard);
+      this.activeCard = this.addedCards[0];
+    },
+   
   },
-  deleteCard(){
-    this.addedCards = this.addedCards.filter(
-      (card) => card.cardNumber != this.activeCard.cardNumber
-    )
-  persist(this.addedCards)
-  localStorage.removeItem(this.activeCard)
-  this.activeCard = {}
-  }
-}
-}
+};
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=PT+Mono&family=Source+Sans+Pro&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=PT+Mono&family=Source+Sans+Pro&display=swap");
 
-body{
+body {
   display: flex;
   justify-content: center;
 }
 
-#app{
+#app {
   margin-top: 2rem;
   display: flex;
   justify-content: center;
   background-color: white;
 }
 
-
 .home {
-    margin-top: 4rem;
-    height: 72px;
-    font-size: 1.5rem;
-    font-weight: bolder;
-    color: black;
-    background-color: white;
-    border-radius: 10px;
+  margin-top: 4rem;
+  height: 72px;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  color: black;
+  background-color: white;
+  border-radius: 10px;
 }
 
 // font-family: 'PT Mono', monospace;
