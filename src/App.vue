@@ -76,15 +76,16 @@ export default {
 };
 </script>
 
-<style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=PT+Mono&family=Source+Sans+Pro&display=swap");
 
-body {
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=PT+Mono&family=Source+Sans+Pro&display=swap');
+
+body{
   display: flex;
   justify-content: center;
 }
 
-#app {
+#app{
   margin-top: 2rem;
   display: flex;
   justify-content: center;
@@ -100,7 +101,6 @@ body {
   background-color: white;
   border-radius: 10px;
 }
-
 // font-family: 'PT Mono', monospace;
 // font-family: 'Source Sans Pro', sans-serif;
 </style>
