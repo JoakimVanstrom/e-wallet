@@ -21,7 +21,10 @@
    </CreateCardPage>
  
 
-  <button v-if="currentView === 'home'"  :class="[currentView]" @click="changePage" >Create Card</button>
+  <button v-if="currentView === 'home'"  
+  :class="[currentView]" 
+  @click="changePage" 
+  >Create Card</button>
 
   </div>
 </template>
