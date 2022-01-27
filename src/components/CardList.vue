@@ -5,8 +5,6 @@
     v-for="card in added" 
     :key="card.cardNumber"
     :card="card"
-    :layerIndex="added.indexOf(card)"
-    :margin="cardMargin"
     @active="$emit('active', card)"
            />
       </ul>
@@ -20,7 +18,6 @@ components: {CreateCard},
 props: ['added'],
 data(){
   return{
-    cardMargin: { marginTop: "-11rem" },
   }
 }
 }

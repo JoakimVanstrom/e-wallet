@@ -1,5 +1,8 @@
 <template>
-  <div @click="$emit('active')" class="create-card">
+  <div 
+  @click="addDelete" 
+  class="create-card"
+  >
     <article class="preview-card" :class="[card.selectedVendor]">
       <header>
         <div class="card-icons">
@@ -52,8 +55,14 @@ export default {
     },
     iconPath(){
       return require(`../assets/${this.card.selectedVendor}.svg`)
-    }
+    },
   },
+  methods:{
+    addDelete(){
+      this.$emit('active')
+      this.$emit('delete')
+    }
+  }
 };
 </script>
 
@@ -143,6 +152,10 @@ header {
       rgba(0, 0, 0, 0) 100%
     ),
     #8b58f9;
+      #chip {
+    background: white;
+    border-radius: 10px;
+  }
 }
 
 .previewCard {

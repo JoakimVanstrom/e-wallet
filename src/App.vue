@@ -83,9 +83,16 @@ export default {
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=PT+Mono&family=Source+Sans+Pro&display=swap');
 
+body{
+  display: flex;
+  justify-content: center;
+}
+
 #app{
-  display: grid;
-  place-items: center;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  background-color: white;
 }
 
 
