@@ -47,9 +47,17 @@ computed: {
 </script>
 
 <style scoped lang="scss">
+
 .home{
   display: flex;
   flex-direction: column;
+}
+  h1{
+  font-family: 'Source Sans Pro', sans-serif;
+  }
+p{
+  font-family: 'PT Mono', monospace;
+
 }
 
 </style>
