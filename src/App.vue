@@ -6,9 +6,8 @@
       :added="addedCards"
       @delete="deleteCard"
       @changePage="changePage"
-      
-    >
-    </Home>
+    
+    />
 
     <CreateCardPage
       :currentView="currentView"
@@ -16,10 +15,8 @@
       :added="addedCards"
       @add-card="addCard"
       @change-page="changePage"
-    >
-    </CreateCardPage>
-
-
+    :errors="errors"
+    />
   </div>
 </template>
 
@@ -38,6 +35,7 @@ export default {
     return {
       currentView: "home",
       addedCards: [],
+      errors: []
     };
   },
   created() {
@@ -48,11 +46,23 @@ export default {
   },
   methods: {
     addCard(card) {
-      for(let i = 0; i<this.addedCards.length; i++){
-      if(this.addedCards[i].cardNumber === card.cardNumber){
-       return alert('Cardnumber already exist')
+      this.errors = []
+      for (let i = 0; i < this.addedCards.length; i++) {
+        if (this.addedCards[i].cardNumber === card.cardNumber) {
+          return this.errors.push('Cardnumber already exist');
+        }
+      }if(card.cardNumber === ''){
+        return this.errors.push('Cardnumber required')
+      }if(card.cardName === ''){
+        return this.errors.push('Name required')
+      }if(card.month === ''){
+        return this.errors.push('Month required')
+      } if(card.year === ''){
+        return this.errors.push('Year required')
+      } if(card.vendor === ''){
+        return this.errors.push('Vendor required')
       }
-      }
+
       this.addedCards.push(card);
       this.currentView = "home";
       persist(this.addedCards);
@@ -72,23 +82,19 @@ export default {
       localStorage.removeItem(this.activeCard);
       this.activeCard = this.addedCards[0];
     },
-   
   },
 };
 </script>
 
-
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=PT+Mono&family=Source+Sans+Pro&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=PT+Mono&family=Source+Sans+Pro&display=swap");
 
-
-#app{
+#app {
   margin-top: 2rem;
   display: flex;
   justify-content: center;
   background-color: white;
 }
-
 
 // font-family: 'PT Mono', monospace;
 // font-family: 'Source Sans Pro', sans-serif;

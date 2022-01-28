@@ -1,77 +1,91 @@
 <template>
   <div>
-      <CreateCard
-      :card="newCard"
-      > </CreateCard>
-      <form @submit.prevent="submitData">
-        <label for="cardnumber">CARD NUMBER</label>
-        <input
-          type="text"
-          v-model="newCard.cardNumber"
-          name="cardnumber"
-          id="input"
-          maxlength="16"
-        />
+    <CreateCard :card="newCard"/>
+    <form @submit.prevent="submitData">
+      <article v-if="errors.length">
+        <p>Please correct this errors before submit</p>
+        <ul>
+          <li v-for="error in errors" :key="error">{{error}}</li>
+        </ul>
+      </article>
+      <label for="cardnumber">CARD NUMBER</label>
+      <input
+        type="text"
+        v-model="newCard.cardNumber"
+        name="cardnumber"
+        id="input"
+        minlength="16"
+        maxlength="16"
+        onkeypress="return /[0-9, Enter]/i.test(event.key)"
+      />
 
-        <label for="name">CARDHOLDER NAME</label>
-        <input v-model="newCard.cardName" type="text" name="name" />
+      <label for="name">CARDHOLDER NAME</label>
+      <input 
+      v-model="newCard.cardName"
+      type="text" 
+      name="name"
+      onkeypress="return /[a-ö, ' ', Enter]/i.test(event.key)"
+       />
 
-        <section class="validation">
-          <div>
-            <label for="month">Month</label><br />
-            <select name="month" v-model="newCard.month" id="">
-              <option v-for="month in dateMonths"
-              :key="month" :value="month"
+      <section class="validation">
+        <div>
+          <label for="month">Month</label><br />
+          <select name="month" v-model="newCard.month" id="">
+            <option
+              v-for="month in dateMonths"
+              :key="month"
+              :value="month"
               selected
-              >
-              {{month}}
-              </option>
-            </select>
-          </div>
-          <div>
-            <label for="year">Year</label><br />
-            <select name="year" v-model="newCard.year" id="">
-              <option v-for="year in dateYears"
+            >
+              {{ month }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <label for="year">Year</label><br />
+          <select name="year" v-model="newCard.year" id="">
+            <option
+              v-for="year in dateYears"
               :key="year"
               :value="year"
-              selected>
-                {{year}}
-              </option>
-            </select>
-          </div>
-        </section>
+              selected
+            >
+              {{ year }}
+            </option>
+          </select>
+        </div>
+      </section>
 
-        <label for="vendor">VENDOR</label>
-        <select name="vendor" v-model="newCard.selectedVendor">
-          <option
-            v-for="option in vendors"
-            :key="option.value"
-            :value="option.value"
-          >
-            {{ option.text }}
-          </option>
-        </select>
-  <button :class="[currentView]"  >Create Card</button>
-      </form>
-   
+      <label for="vendor">VENDOR</label>
+      <select name="vendor" v-model="newCard.selectedVendor">
+        <option
+          v-for="option in vendors"
+          :key="option.value"
+          :value="option.value"
+        >
+          {{ option.text }}
+        </option>
+      </select>
+      <button :class="[currentView]">Create Card</button>
+    </form>
   </div>
 </template>
 
 <script>
 import CreateCard from "./CreateCard.vue";
 export default {
-components: {CreateCard},
-props: ['addedCards', 'currentView'],
-data(){
-    return{
-    newCard: {
+  components: { CreateCard },
+  props: ["addedCards", "currentView", "errors"],
+  data() {
+    return {
+      newCard: {
         cardNumber: "",
         cardName: "",
         month: "",
         year: "",
-        selectedVendor: "previewCard"
+        selectedVendor: "previewCard",
       },
-         dateMonths: {
+      dateMonths: {
         1: "01",
         2: "02",
         3: "03",
@@ -99,15 +113,14 @@ data(){
         { text: "Ninja bank", value: "ninja" },
         { text: "Block chain inc", value: "blockchain" },
       ],
-    }
-},
-methods:{
-  submitData(){
-    this.$emit('addData', { ...this.newCard})
-},
-
-}
-}
+    };
+  },
+  methods: {
+    submitData() {
+      this.$emit("addData", { ...this.newCard });
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
@@ -126,22 +139,22 @@ form {
   }
 }
 .CreateCardPage {
-    margin-top: 4rem;
-    height: 72px;
-    font-size: 1.5rem;
-    font-weight: bolder;
-    color: white;
-    background-color: black;
-    border-radius: 10px;
-    width: 100%;
+  margin-top: 4rem;
+  height: 72px;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  color: white;
+  background-color: black;
+  border-radius: 10px;
+  width: 100%;
+  cursor: pointer;
 }
 .validation {
   display: flex;
   justify-content: space-between;
   padding-top: 1rem;
-  select{
+  select {
     width: 175px;
-    
   }
 }
 </style>

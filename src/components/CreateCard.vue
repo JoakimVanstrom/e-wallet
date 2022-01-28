@@ -1,8 +1,5 @@
 <template>
-  <div 
-  @click="addDelete" 
-  class="create-card"
-  >
+  <div @click="addDelete" class="create-card">
     <article class="preview-card" :class="[card.selectedVendor]">
       <header>
         <div class="card-icons">
@@ -19,9 +16,7 @@
         </div>
       </header>
       <p class="credNumbers" v-if="card.cardNumber">{{ spaceNumber }}</p>
-      <p class="credNumbers" v-else>
-        XXXX XXXX XXXX XXXX
-      </p>
+      <p class="credNumbers" v-else>XXXX XXXX XXXX XXXX</p>
       <div class="names">
         <p>CARDHOLDER NAME</p>
         <p>VALID THRU</p>
@@ -36,11 +31,9 @@
 
 <script>
 export default {
- props: ['card', 'margin', 'layerIndex'],
+  props: ["card", "margin", "layerIndex"],
   data() {
-    return {
-
-        };
+    return {};
   },
   computed: {
     spaceNumber() {
@@ -53,16 +46,16 @@ export default {
       }
       return value;
     },
-    iconPath(){
-      return require(`../assets/${this.card.selectedVendor}.svg`)
+    iconPath() {
+      return require(`../assets/${this.card.selectedVendor}.svg`);
     },
   },
-  methods:{
-    addDelete(){
-      this.$emit('active')
-      this.$emit('delete')
-    }
-  }
+  methods: {
+    addDelete() {
+      this.$emit("active");
+      this.$emit("delete");
+    },
+  },
 };
 </script>
 
@@ -152,7 +145,7 @@ header {
       rgba(0, 0, 0, 0) 100%
     ),
     #8b58f9;
-      #chip {
+  #chip {
     background: white;
     border-radius: 10px;
   }
