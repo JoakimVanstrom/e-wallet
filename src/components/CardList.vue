@@ -1,5 +1,5 @@
 <template>
-  <section class="class-list">
+  <section class="card-list">
       <ul>
             <CreateCard
     v-for="card in added" 
@@ -24,5 +24,12 @@ data(){
 </script>
 
 <style scoped lang="scss">
+
+.card-list {
+  display: grid;
+  grid-auto-rows: 2rem;
+  height: 400px;
+
+}
 
 </style>

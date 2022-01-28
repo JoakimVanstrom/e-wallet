@@ -1,17 +1,26 @@
 <template>
-  <div class="home">
+  <div class="home-wrapper">
       <h1>E-Wallet</h1>
      <p>Active card</p>
      <CreateCard 
     :card="getCard"
      @delete="$emit('delete', activeCard)"
      ></CreateCard>
-
+ 
      <CardList
      :added="added"
      @active="activateCard"
     
      ></CardList>
+  
+         <button
+      v-if="currentView === 'home'"
+      :class="[currentView]"
+      @click="$emit('changePage')"
+    >
+      Create Card
+    </button>
+ 
   </div>
 </template>
 
@@ -21,7 +30,7 @@ import CardList from '../components/CardList.vue'
 
 export default {
 components: { CardList, CreateCard},
-props: ['added', 'active'],
+props: ['added', 'active', 'currentView'],
   data(){return{
           activeCardData: {},
           activeCard: this.added[0].cardNumber
@@ -48,9 +57,9 @@ computed: {
 
 <style scoped lang="scss">
 
-.home{
-  display: flex;
-  flex-direction: column;
+.home-wrapper{
+display: grid;
+
 }
   h1{
   font-family: 'Source Sans Pro', sans-serif;
@@ -58,6 +67,16 @@ computed: {
 p{
   font-family: 'PT Mono', monospace;
 
+}
+
+.home {
+  margin-top: 4rem;
+  height: 72px;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  color: black;
+  background-color: white;
+  border-radius: 10px;
 }
 
 </style>

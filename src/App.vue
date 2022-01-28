@@ -1,10 +1,12 @@
 <template>
   <div id="app">
     <Home
-      :home="currentView"
+      :currentView="currentView"
       v-if="currentView === 'home'"
       :added="addedCards"
       @delete="deleteCard"
+      @changePage="changePage"
+      
     >
     </Home>
 
@@ -17,13 +19,7 @@
     >
     </CreateCardPage>
 
-    <button
-      v-if="currentView === 'home'"
-      :class="[currentView]"
-      @click="changePage"
-    >
-      Create Card
-    </button>
+
   </div>
 </template>
 
@@ -52,6 +48,11 @@ export default {
   },
   methods: {
     addCard(card) {
+      for(let i = 0; i<this.addedCards.length; i++){
+      if(this.addedCards[i].cardNumber === card.cardNumber){
+       return alert('Cardnumber already exist')
+      }
+      }
       this.addedCards.push(card);
       this.currentView = "home";
       persist(this.addedCards);
@@ -80,10 +81,6 @@ export default {
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=PT+Mono&family=Source+Sans+Pro&display=swap');
 
-body{
-  display: flex;
-  justify-content: center;
-}
 
 #app{
   margin-top: 2rem;
@@ -92,15 +89,7 @@ body{
   background-color: white;
 }
 
-.home {
-  margin-top: 4rem;
-  height: 72px;
-  font-size: 1.5rem;
-  font-weight: bolder;
-  color: black;
-  background-color: white;
-  border-radius: 10px;
-}
+
 // font-family: 'PT Mono', monospace;
 // font-family: 'Source Sans Pro', sans-serif;
 </style>

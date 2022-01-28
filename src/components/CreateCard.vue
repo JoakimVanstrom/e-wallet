@@ -15,7 +15,7 @@
           <img id="chip" src="../assets/chip.svg" alt="" />
         </div>
         <div class="vendoricon">
-          <!-- <img :src="iconPath" alt="" /> -->
+          <img :src="iconPath" alt="" />
         </div>
       </header>
       <p class="credNumbers" v-if="card.cardNumber">{{ spaceNumber }}</p>
@@ -53,9 +53,9 @@ export default {
       }
       return value;
     },
-    // iconPath(){
-    //   return require(`../assets/${this.card.selectedVendor}.svg`)
-    // },
+    iconPath(){
+      return require(`../assets/${this.card.selectedVendor}.svg`)
+    },
   },
   methods:{
     addDelete(){
