@@ -1,14 +1,16 @@
 <template>
+<div>
   <section class="card-list">
-      <ul>
+      
             <CreateCard
     v-for="card in added" 
     :key="card.cardNumber"
     :card="card"
     @active="$emit('active', card)"
            />
-      </ul>
+    
   </section>
+  </div>
 </template>
 
 <script>
@@ -27,9 +29,7 @@ data(){
 
 .card-list {
   display: grid;
-  grid-auto-rows: 2rem;
-  height: 400px;
-
+  grid-auto-rows: 3.5rem;
 }
 
 </style>

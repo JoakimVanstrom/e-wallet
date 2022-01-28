@@ -1,7 +1,7 @@
 <template>
   <div class="home-wrapper">
       <h1>E-Wallet</h1>
-     <p>Active card</p>
+      <p>Active card</p>
      <CreateCard 
     :card="getCard"
      @delete="$emit('delete', activeCard)"
@@ -10,9 +10,9 @@
      <CardList
      :added="added"
      @active="activateCard"
-    
+    class="cardlist"
      ></CardList>
-  
+
          <button
       v-if="currentView === 'home'"
       :class="[currentView]"
@@ -61,22 +61,27 @@ computed: {
 display: grid;
 
 }
-  h1{
+h1{
   font-family: 'Source Sans Pro', sans-serif;
+  font-size: 3rem;
+  text-align: center;
   }
 p{
   font-family: 'PT Mono', monospace;
-
+  text-align: center;
+}
+.cardlist {
+  padding-top: 3rem;
 }
 
 .home {
-  margin-top: 4rem;
-  height: 72px;
+  margin-top: 15rem;
   font-size: 1.5rem;
   font-weight: bolder;
   color: black;
   background-color: white;
   border-radius: 10px;
+  height: 72px;
 }
 
 </style>

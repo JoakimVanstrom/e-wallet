@@ -86,7 +86,7 @@ header {
 .vendoricon {
   display: flex;
   justify-content: flex-end;
-  padding: 2rem 2rem 0 0;
+  padding: 0 2rem 0 0;
   img {
     width: 70px;
   }
